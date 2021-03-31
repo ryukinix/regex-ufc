@@ -1,15 +1,15 @@
-# -*- toc-org-hrefify-default: org -*-
+# -*- toc-org-hrefify-default: "org"; -*-
 #+TITLE: Expressões Regulares @@latex:\\@@ Entre autômatos e implementações
 #+AUTHOR: Manoel Vilela Machado
-#+OPTIONS: toc:nil num:t
+#+OPTIONS: toc:nil num:t tag:nil
 #+STARTUP: beamer
 #+LATEX_HEADER: \usetheme{metropolis}
 #+LATEX_HEADER: \institute{Engenharia da Computação, Universidade Federal do Ceará, Sobral}
 #+LANGUAGE: bt-br
 #+LATEX_HEADER: \usepackage[]{babel}
-#+TOC: headlines=2
 
-* Sumário                                                             :TOC_1_org:
+* DONE Sumário                                                    :TOC_1_org:
+  CLOSED: [2021-03-31 qua 03:32]
 :PROPERTIES:
 :CUSTOM_ID: toc-org
 :END:
@@ -25,12 +25,12 @@
 
 ** Definição
 
-Não é fácil construir nada
+Na teoria de linguagens formais, uma expressão regular é...
 
 ** Nomenclatura internacional
 
 Expressões regulares também são conhecidas em inglês por /regular
-expressions/ abreviadamente /regex/ ou /RegExp/.
+expressions/ abreviado como /regex/ ou /RegExp/.
 
 * História das expressões regulares
 
@@ -49,16 +49,18 @@ expressions/ abreviadamente /regex/ ou /RegExp/.
 ** PCRE
 
 * Uso prático
-** Domínios
+** TODO Domínios
 - Processamento e Extração de Texto
 - Bioinformática
 - Mineração de Dados (/Crawlers/)
+- Edição de texto
+- Regras de validação de dados: email, telefone, data, hora
 
-** Ferramentas
-- /grep/
-- /sed/
+** DONE Ferramentas
+   CLOSED: [2021-03-31 qua 03:31]
+- /grep/: search with regex
+- /sed/: =search -> replace -> regex=
 - bibliotecas de /regex/ nas principais linguagens de programação
-
 
 * Implementações e poder computacional
 
@@ -75,6 +77,6 @@ a extensão com /backtracking/ e /capture groups/, estas expressões
 curiosamente não fazem mais parte das linguagens regulares, pois não
 obedecem nem gramática regular nem gramática livre de contexto também!
 
-
-
 * Referências
+
+-
