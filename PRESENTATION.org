@@ -1,0 +1,80 @@
+# -*- toc-org-hrefify-default: org -*-
+#+TITLE: Expressões Regulares @@latex:\\@@ Entre autômatos e implementações
+#+AUTHOR: Manoel Vilela Machado
+#+OPTIONS: toc:nil num:t
+#+STARTUP: beamer
+#+LATEX_HEADER: \usetheme{metropolis}
+#+LATEX_HEADER: \institute{Engenharia da Computação, Universidade Federal do Ceará, Sobral}
+#+LANGUAGE: bt-br
+#+LATEX_HEADER: \usepackage[]{babel}
+#+TOC: headlines=2
+
+* Sumário                                                             :TOC_1_org:
+:PROPERTIES:
+:CUSTOM_ID: toc-org
+:END:
+- [[Definição formal][Definição formal]]
+- [[História das expressões regulares][História das expressões regulares]]
+- [[Evolução do conceito][Evolução do conceito]]
+- [[Extensões][Extensões]]
+- [[Uso prático][Uso prático]]
+- [[Implementações e poder computacional][Implementações e poder computacional]]
+- [[Referências][Referências]]
+
+* Definição formal
+
+** Definição
+
+Não é fácil construir nada
+
+** Nomenclatura internacional
+
+Expressões regulares também são conhecidas em inglês por /regular
+expressions/ abreviadamente /regex/ ou /RegExp/.
+
+* História das expressões regulares
+
+** Linha do tempo
+
+** Principais pontos
+
+* Evolução do conceito
+
+** POSIX
+** Unix / Multics
+** Linguagens de programação
+
+* Extensões
+
+** PCRE
+
+* Uso prático
+** Domínios
+- Processamento e Extração de Texto
+- Bioinformática
+- Mineração de Dados (/Crawlers/)
+
+** Ferramentas
+- /grep/
+- /sed/
+- bibliotecas de /regex/ nas principais linguagens de programação
+
+
+* Implementações e poder computacional
+
+** Revelação
+
+E se eu disser que a maioria das linguagens de programação implementam
+/regex/ com máquinas que excedem o poder de uma máquina de estado
+finito?
+
+** Situação-problema
+
+Devido as extensões realizadas na notação das expressões, por exemplo
+a extensão com /backtracking/ e /capture groups/, estas expressões
+curiosamente não fazem mais parte das linguagens regulares, pois não
+obedecem nem gramática regular nem gramática livre de contexto também!
+
+
+
+* Referências
