@@ -1,5 +1,5 @@
 # -*- toc-org-hrefify-default: "org"; -*-
-#+TITLE: Expressões Regulares @@latex:\\@@ Entre autômatos e implementações
+#+TITLE: Expressões Regulares @@latex:\\@@ Linguagens formais e implementações
 #+AUTHOR: Manoel Vilela Machado
 #+OPTIONS: toc:nil num:t tag:nil
 #+STARTUP: beamer
@@ -15,52 +15,113 @@
 :END:
 - [[Definição formal][Definição formal]]
 - [[História das expressões regulares][História das expressões regulares]]
-- [[Evolução do conceito][Evolução do conceito]]
 - [[Extensões][Extensões]]
 - [[Uso prático][Uso prático]]
+- [[Teorema: Linguagem Regular → Expressão Regular][Teorema: Linguagem Regular → Expressão Regular]]
 - [[Implementações e poder computacional][Implementações e poder computacional]]
+- [[Complexidade computacional][Complexidade computacional]]
+- [[Conclusão][Conclusão]]
 - [[Referências][Referências]]
 
 * Definição formal
 
-** Definição
+** Definição: Expressão regular
 
-Na teoria de linguagens formais, uma expressão regular é...
+Uma expressão regular (ER) gera uma linguagem regular (L).
+
+** Regras
+São expressões regulares que implicam nas linguagens regulares geradas:
+- \(\emptyset\ \implies L(\emptyset)\)
+- \(\varepsilon\ \implies L(\{\varepsilon\}\))
+- \(x, x \in \Sigma \implies L(\{x\}) \)
+
+Além da base de indução acima, é definido também as operações de
+*união* (x+y), *concatenação* (xy) e *concetenação sucessiva* (x*).
+
 
 ** Nomenclatura internacional
 
 Expressões regulares também são conhecidas em inglês por /regular
 expressions/ abreviado como /regex/ ou /RegExp/.
 
+
 * História das expressões regulares
 
-** Linha do tempo
+#+ATTR_LATEX: :width 2cm
+#+CAPTION: Stephen Cole Kleene (Wikipedia)
+[[./pics/Kleene.jpg]]
 
-** Principais pontos
 
-* Evolução do conceito
 
-** POSIX
-** Unix / Multics
-** Linguagens de programação
+- Stephen Cole Kleene: criação do conceito de expressão regular (1950)
+- Ken Thompson: Unix e QED (1970)
+- Henry Spencer: Perl e Tcl (1986)
+- Philip Hazel: PCRE (Perl Compatible Regular Expressions) (1997)
 
 * Extensões
 
-** PCRE
+|---+--------------+-----------------------+------------------------------------------|
+| / | <>           | <                     | <>                                       |
+|---+--------------+-----------------------+------------------------------------------|
+| # | Operador     | Descrição             | Exemplo                                  |
+|---+--------------+-----------------------+------------------------------------------|
+| # | \vert        | Operação de união     | ~a~ \vert b \rightarrow ~{a, b}~         |
+|---+--------------+-----------------------+------------------------------------------|
+| # | ~+~          | Ao menos um           | ~a+~ \rightarrow ~{a, aa, ...}~          |
+|---+--------------+-----------------------+------------------------------------------|
+| # | ~.~          | Qualquer caracter     | ~.~ \rightarrow ~{a, b, c, ...}~         |
+|---+--------------+-----------------------+------------------------------------------|
+| # | ~?~          | Match opcional        | ~a?b~ \rightarrow ~{ab, b}~              |
+|---+--------------+-----------------------+------------------------------------------|
+| # | ~[abc]~      | Compreensão de união  | ~[abc]~ \rightarrow ~{a, b, c}~          |
+|---+--------------+-----------------------+------------------------------------------|
+| # | ~{min, max}~ | Controle de repetição | ~a{2,3}~ \rightarrow ~{aa, aaa}~         |
+|---+--------------+-----------------------+------------------------------------------|
+| # | ~[a-z]~      | Faixa de caractéres   | ~[0-9]~ \rightarrow ~{0, 1, ..., 9}~     |
+|---+--------------+-----------------------+------------------------------------------|
+| # | ~\n~         | Backreference         | ~(a~ \vert ~b)\1~ \rightarrow ~{aa, bb}~ |
+|---+--------------+-----------------------+------------------------------------------|
+
+Linguagens de programações geralmente extendem a notação de expressões
+regulares para torná-las mais expressivas e poderosas. Extensões
+conhecidas: PCRE, Python, Java,
+JavaScript.
+
 
 * Uso prático
-** TODO Domínios
-- Processamento e Extração de Texto
-- Bioinformática
-- Mineração de Dados (/Crawlers/)
-- Edição de texto
-- Regras de validação de dados: email, telefone, data, hora
+** DONE Alguns domínios
+   CLOSED: [2021-03-31 qua 11:46]
+- Extração de Texto: Processamento de Linguagem  Natural
+- Mineração de Dados: /Crawlers/ na web
+- Edição de texto: busca, substituição, /syntax highlight/
+- Validação de dados: email, telefone, data, hora
 
 ** DONE Ferramentas
    CLOSED: [2021-03-31 qua 03:31]
-- /grep/: search with regex
-- /sed/: =search -> replace -> regex=
+- Linha de comando UNIX: /grep/, /sed/
 - bibliotecas de /regex/ nas principais linguagens de programação
+- Busca /GitHub/ + /regex/: https://grep.app/
+- Teste de expressões regulares: https://www.regexpal.com/
+- Depuração de expressões regulares: https://www.debuggex.com/
+
+* Teorema: Linguagem Regular → Expressão Regular
+
+** Definição
+
+Se *L* é linguagem regular, então existe uma /ER/
+*r* tal que:
+
+#+BEGIN_EXPORT latex
+\begin{equation}
+GERA(r) = L
+\end{equation}
+#+END_EXPORT
+
+
+** Lemma 1
+
+Uma linguagem é regular se, e somente se, é possível construir um /AFD/
+ou /AFN/ que reconheça a linguagem.
 
 * Implementações e poder computacional
 
@@ -73,10 +134,43 @@ finito?
 ** Situação-problema
 
 Devido as extensões realizadas na notação das expressões, por exemplo
-a extensão com /backtracking/ e /capture groups/, estas expressões
-curiosamente não fazem mais parte das linguagens regulares, pois não
-obedecem nem gramática regular nem gramática livre de contexto também!
+a extensão com *backreference*, estas expressões
+curiosamente fazem que as linguagens geradas não façam mais mais parte das
+linguagens regulares, pois não obedecem nem gramática regular nem
+gramática livre de contexto também!
+
+* Complexidade computacional
+
+
+#+ATTR_LATEX: :width 8cm
+#+CAPTION: Benchmark. Expressões regulares parametrizado pelo tamanho das expressões e do texto, escala logarítimica (R. COX, 2007)
+[[./pics/grep1p-russ-cox.png]]
+
+
+- Para uma expressão regular de tamanho *m* em um texto *n*, Thompson
+  NFA requer \(O(mn)\) de tempo.
+- Expressões regulares com /backreference/ e /backtracking/ requerem \(O(2^n)\).
+
+* Conclusão
+
+Em alguns contextos práticos, o termo utilizado *regex* fora da definição de
+linguagens formais podem atender linguagens de maior complexidade que as
+linguagens regulares, portanto, nesses casos uma máquina de estado
+finito não é o suficiente pra representá-lo.
+
+
+** Provocação
+
+Nem sempre uma expressão regular é regular, depende do contexto.
+
 
 * Referências
 
--
+- Paulo Blauth Menezes, Linguagens Formais e Autômatos, Editora Bookman, 6a edição, 2010.
+- The Open Group. *[[https://pubs.opengroup.org/onlinepubs/007908799/xbd/re.html][Regular Expressions]]*. The Single UNIX Specification, Version 2.
+  . 1997. Acesso em 31 de março de 2021.
+- Aho, Alfred V.; Ullman, Jeffrey D. *[[http://infolab.stanford.edu/~ullman/focs/ch10.pdf][Chapter 10: Patterns,
+  Automata, and Regular Expressions]]*. Foundations of Computer
+  Science. 1992. Acesso em 31 de março 2021.
+- Russ Cox, *[[https://swtch.com/~rsc/regexp/regexp1.html][Regular Expression Matching Can Be Simple And Fast]]*, 2007. Acesso em 31 de março
+  de 2021.
